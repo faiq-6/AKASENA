@@ -1,0 +1,164 @@
+Alur program kerja Fixed Wings yang belum termasuk switching
+
+BAHAN YANG DIPERLUIN
+* Hardware
+   ^ Pixhawk (flight controller)
+   ^ Raspberry Pi (companion computer)
+   ^ UBEC 5V 6s 12-15A
+   ^ LTE Modem (Fibocom)
+   ^ USB-to-M.2 Key-B adapter
+   ^ SIM Card aktif
+   ^ 2× Antena LTE MIMO (MAIN + AUX)
+   ^ Kabel USB-C (UBEC ke Raspberry Pi)
+   ^ Kabel UART / USB (Pixhawk ke Raspberry Pi)
+* Software
+   ^ Ubuntu
+   ^ NetworkManager
+   ^ ModemManager
+   ^ Driver LTE (MBIM/NCM)
+   ^ VPN client (WireGuard/OpenVPN)
+   ^ MAVProxy atau mavlink-router
+   ^ SSH
+   ^ Mission Planner
+   ^ VPN client (satu jaringan dengan UAV)
+
+Pembagian tugas TAHAP 1
+1. Network & LTE
+   Tujuan Utama: Menyediakan koneksi internet LTE yang stabil, otomatis, dan persistent pada Raspberry Pi.
+   Fungsi yang Dibangun:
+   - Raspberry Pi terhubung ke jaringan LTE
+   - Raspberry Pi otomatis online setelah boot
+   - Raspberry Pi memiliki IP privat VPN
+   - Koneksi tidak bergantung IP publik modem
+   Komponen yang Digunakan:
+   Hardware:
+   ^ LTE modem (Fibocom / setara)
+   ^ SIM card aktif
+   ^ Antena LTE MIMO (2 buah)
+   ^ Raspberry Pi
+   Software
+   ^ Ubuntu
+   ^ NetworkManager
+   ^ ModemManager
+   ^ VPN client (WireGuard / OpenVPN)
+  Kerja Teknis
+  - Setup LTE Modem
+     ^ Pasang modem ke Raspberry Pi
+     ^ Pastikan terdeteksi (lsusb, mmcli)
+     ^ Set APN sesuai operator
+     ^ Pilih mode MBIM atau NCM
+  - Uji Internet
+    ^ Ping IP publik (8.8.8.8)
+    ^ Uji DNS
+    ^ Cek latency dan packet loss
+  - Setup VPN
+    ^ Install VPN client
+    ^ Konfigurasi tunnel ke server
+    ^ Pastikan auto-connect saat boot
+  - Validasi
+    ^ Reboot Raspberry Pi
+    ^ Pastikan LTE dan VPN aktif otomatis
+    ^ Raspberry Pi bisa di-ping dari GCS
+  Output yang Harus Diserahkan:
+  - Diagram topologi jaringan
+  - File konfigurasi VPN
+  - Catatan latency & stability
+  - Checklist koneksi berhasil
+
+2. Telemetry & MAVLink
+   Tujuan Utama: Mengirim data MAVLink dari Pixhawk ke GCS melalui koneksi LTE dengan loss minimal dan latency terkontrol.
+   Fungsi yang Dibangun:
+   - Raspberry Pi menerima MAVLink dari Pixhawk
+   - Data MAVLink diteruskan ke GCS melalui VPN
+   - Mission Planner bisa terhubung tanpa radio
+   Komponen yang Digunakan;
+   Hardware:
+   ^ Pixhawk
+   ^ Raspberry Pi
+   ^ Software
+   ^ MAVProxy atau mavlink-router
+   ^ Mission Planner
+   Langkah Kerja Teknis
+   - Koneksi Pixhawk ke Raspberry Pi
+     ^ Gunakan UART (TELEM port) atau USB
+     ^ Set baudrate (biasanya 57600/115200)
+   - Routing MAVLink
+     ^ Install MAVProxy/mavlink-router
+     ^ Tentukan input (Pixhawk)
+     ^ Tentukan output (VPN IP + port)
+   - Integrasi GCS
+     ^ Set Mission Planner ke UDP/TCP
+     ^ Target IP = IP VPN Raspberry Pi
+     ^ Port sesuai konfigurasi MAVLink
+   - Logging & Monitoring
+     ^ Cek packet rate
+     ^ Cek message loss
+     ^ Cek latency telemetry
+   Output yang Harus Diserahkan:
+   - File config MAVLink
+   - Port & protocol mapping
+   - Screenshot Mission Planner terhubung
+   - Log telemetry normal
+
+3. Power & Hardware Integration
+   Tujuan Utama:
+   Menjamin Raspberry Pi dan modem LTE tidak reboot atau drop akibat masalah daya.
+   Fungsi yang Dibangun:
+   - Supply 5V stabil ke Raspberry Pi
+   - Supply cukup arus untuk LTE spike
+   - Grounding yang benar
+   - Noise minimal
+   Komponen yang Digunakan:
+   Hardware
+   ^ UBEC 5V 6s 12-15A (saranku, nanti coba dicek)
+   ^ Kabel power
+   ^ Raspberry Pi
+   ^ LTE modem
+   Langkah Kerja Teknis:
+   - Power Budget
+     ^ Hitung konsumsi Pi (idle & load)
+     ^ Hitung spike modem LTE
+     ^ Tambahkan safety margin
+   - Wiring
+     ^ UBEC ke Raspberry Pi (pake USB-C)
+     ^ Ground common
+   - Validasi
+     ^ Boot test
+     ^ LTE attach test
+     ^ Reconnect test
+     ^ Observe voltage drop
+   Output yang Harus Diserahkan
+   - Diagram wiring power
+   - Hasil uji drop tegangan
+   - Rekomendasi UBEC final
+
+4. RF & Antenna
+   Tujuan Utama:
+   Memastikan kualitas sinyal LTE optimal sehingga telemetry stabil.
+   Fungsi yang Dibangun:
+   - Antena LTE bekerja optimal (MIMO)
+   - Minim interferensi EMI
+   - RSSI stabil saat UAV bergerak
+   Komponen yang Digunakan
+   - Hardware
+     ^ 2 antena LTE (MAIN & AUX)
+     ^ Kabel antena
+     ^ LTE modem
+   Langkah Kerja Teknis
+   - Penempatan Antena
+     ^ Jarak antar antena
+     ^ Orientasi & polaritas
+     ^ Tidak dekat sumber noise
+   - Manajemen Kabel
+     ^ Kabel pendek
+     ^ Tidak paralel dengan power
+     ^ Strain relief
+   - Pengujian
+     ^ RSSI test
+     ^ Stability test
+     ^ Compare posisi antena
+   Output yang Harus Diserahkan
+   - Diagram penempatan antena
+   - Data RSSI
+   - Rekomendasi posisi final
+  
