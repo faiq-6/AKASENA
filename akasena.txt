@@ -141,27 +141,29 @@ Pembagian tugas TAHAP 1
    - RSSI stabil saat UAV bergerak
    Komponen yang dipake:
    - Hardware
-     ^ 2 antena LTE (MAIN & AUX)
-     ^ Kabel antena
-     ^ LTE modem
+     ^ 2 antena LTE (MAIN & AUX, wideband 700–2600 MHz)
+     ^ Kabel antena low-loss (RG316)
+     ^ LTE modem (Fibocom)
    Langkah Kerja Teknis
    - Penempatan Antena
-     ^ Jarak antar antena
+     ^ Jarak antar antena sekitar 10-15cm
      ^ Orientasi & polaritas
-     ^ Tidak dekat sumber noise
+     ^ Tidak dekat sumber noise 
+        1. ESC ≥10 cm
+        2. Motor ≥15 cm
+        3. UBEC ≥8 cm
    - Manajemen Kabel
      ^ Kabel pendek
      ^ Tidak paralel dengan power
      ^ Strain relief
    - Pengujian
-     ^ RSSI test
-     ^ Stability test
-     ^ Compare posisi antena
+     ^ RSSI, RSRP, dan SINR test pada kondisi statis
+     ^ Stability test saat motor aktif
+     ^ Compare posisi antena (trial and error)
    Output yang diharapkan:
    - Diagram penempatan antena
-   - Data RSSI
+   - Data RSSI/RSRP/SINR
+   - Perbandingan posisi antena
    - Rekomendasi posisi final
   
 
-
--
