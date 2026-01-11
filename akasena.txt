@@ -26,10 +26,10 @@ Pembagian tugas TAHAP 1
 1. Network & LTE
    Tujuan Utama: Menyediakan koneksi internet LTE yang stabil, otomatis, dan persistent pada Raspberry Pi.
    Fungsi yang Dibangun:
-   - Raspberry Pi terhubung ke jaringan LTE
-   - Raspberry Pi otomatis online setelah boot
-   - Raspberry Pi memiliki IP privat VPN
-   - Koneksi tidak bergantung IP publik modem
+   - Raspberry Pi terhubung ke jaringan LTE (SUDAH)
+   - Raspberry Pi otomatis online setelah boot (SUDAH)
+   - Raspberry Pi memiliki IP privat VPN (SUDAH)
+   - Koneksi tidak bergantung IP publik modem (SUDAH)
    Komponen yang Digunakan:
    Hardware:
    ^ LTE modem Fibocom
