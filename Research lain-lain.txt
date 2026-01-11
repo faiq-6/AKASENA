@@ -1,0 +1,25 @@
+CONNECTING ANTARA RASPBERRY PI DAN PIXHAWK
+
+Komponen yang dibutuhkan:
+*  Hardware
+  - Raspberry Pi
+  - Pixhawk
+  - Kabel data micro USB to type C
+*  Software
+  - Operating system (Ubuntu atau Raspbian)
+  - Mission Planner
+
+Langkah-langkah
+* Setup Raspberry Pi
+  - Download OS pada SD card yang akan diinput pada Raspberry Pi
+  - Cek koneksi (bisa kabel maupun nirkabel)
+* Buka OS Ubuntu atau Raspbian
+  - Buka CMD
+  - Install mavproxy (pip install mavproxy)
+  - Cek dan copy lokasi mavproxy
+  - Paste lokasi mavproxy dengan penulisan (sudo (lokasi mavproxy)
+  - Enter maka secara otomatis mavproxy akan running
+* Hasil akhir
+  - Raspberry Pi dan Pixhawk terkoneksi
+  - Mavproxy terdeteksi
+  - Terdapat keterangan port yang menghubungkan Raspberry Pi dengan Pixhawk
