@@ -53,6 +53,9 @@ Pembagian tugas TAHAP 1
     ^ Cek latency dan packet loss
   - Setup VPN
     ^ Install VPN client
+    Beli VPS Linux dan download wireguard di windows:
+      - Login pertama ke VPS di windows pake cmd 
+      - Bash ssh root@vps.akasena.com
     ^ Konfigurasi tunnel ke server
     ^ Pastikan auto-connect saat boot
   - Validasi
